@@ -11,8 +11,11 @@ public class Coin : MonoBehaviour
 
         if(collision.CompareTag("Player"))
         {
-            collected = true;
             Player player = collision.gameObject.GetComponent<Player>();
+            if (player == null || !player.CanCollectItems)
+                return;
+
+            collected = true;
             player.coins += 1;
             GameManager.Instance.AddCoin(1);
             Destroy(gameObject);
